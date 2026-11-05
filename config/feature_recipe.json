@@ -1,0 +1,197 @@
+{
+  "target_col": "PE",
+  "task": "regression",
+  "model_family": "TABULAR_ML",
+  "numeric_cols": [
+    "AT",
+    "V",
+    "AP",
+    "RH"
+  ],
+  "categorical_cols": [],
+  "feature_names": [
+    "AT",
+    "V",
+    "AP",
+    "RH"
+  ],
+  "class_names": null,
+  "impute_medians": [
+    20.360000610351562,
+    52.08000183105469,
+    1012.9299926757812,
+    75.06999969482422
+  ],
+  "outlier_bounds": [
+    {
+      "lower": -22.689998626708984,
+      "upper": 62.0274977684021
+    },
+    {
+      "lower": -32.63999938964844,
+      "upper": 140.9599952697754
+    },
+    {
+      "lower": 984.8199462890625,
+      "upper": 1041.467544555664
+    },
+    {
+      "lower": -1.1374950408935547,
+      "upper": 149.3274908065796
+    }
+  ],
+  "scale_recipe": {
+    "method": "standard",
+    "mean_": [
+      19.71006599313568,
+      54.385541359535864,
+      1013.2488441215565,
+      73.35430564233909
+    ],
+    "scale_": [
+      7.412767262624078,
+      12.734940051470591,
+      5.910544855118681,
+      14.608105995461528
+    ]
+  },
+  "encode_recipe": {
+    "categorical_cols": [],
+    "encoders": {}
+  },
+  "custom_formulas": null,
+  "smote_applied": false,
+  "applied_pipeline_steps": [
+    {
+      "step": "FeatureExpansion",
+      "params": {
+        "derived_columns": [],
+        "onehot_columns": []
+      }
+    },
+    {
+      "step": "Imputation",
+      "params": {
+        "method": "median",
+        "columns": [
+          "AT",
+          "V",
+          "AP",
+          "RH"
+        ],
+        "medians": [
+          20.360000610351562,
+          52.08000183105469,
+          1012.9299926757812,
+          75.06999969482422
+        ]
+      }
+    },
+    {
+      "step": "WinsorizeCaps",
+      "params": {
+        "factor": 3.0,
+        "bounds": [
+          {
+            "lower": -22.689998626708984,
+            "upper": 62.0274977684021
+          },
+          {
+            "lower": -32.63999938964844,
+            "upper": 140.9599952697754
+          },
+          {
+            "lower": 984.8199462890625,
+            "upper": 1041.467544555664
+          },
+          {
+            "lower": -1.1374950408935547,
+            "upper": 149.3274908065796
+          }
+        ]
+      }
+    },
+    {
+      "step": "Scaling",
+      "params": {
+        "method": "standard"
+      }
+    }
+  ],
+  "feature_expansion_report": {
+    "numeric": [
+      {
+        "col": "AT",
+        "variance": 54.949118,
+        "skew": -0.13597,
+        "min": 2.64,
+        "n_unique": 2549,
+        "abs_corr": 0.943987,
+        "log1p_candidate": false,
+        "high_impact": true
+      },
+      {
+        "col": "V",
+        "variance": 162.178698,
+        "skew": 0.19482,
+        "min": 25.360001,
+        "n_unique": 622,
+        "abs_corr": 0.884372,
+        "log1p_candidate": false,
+        "high_impact": true
+      },
+      {
+        "col": "AP",
+        "variance": 34.93454,
+        "skew": 0.288648,
+        "min": 992.890015,
+        "n_unique": 2279,
+        "abs_corr": 0.546909,
+        "log1p_candidate": false,
+        "high_impact": true
+      },
+      {
+        "col": "RH",
+        "variance": 213.396761,
+        "skew": -0.453322,
+        "min": 25.889999,
+        "n_unique": 3830,
+        "abs_corr": 0.385544,
+        "log1p_candidate": false,
+        "high_impact": true
+      }
+    ],
+    "log1p_columns": [],
+    "high_impact_numeric": [
+      "AT",
+      "V",
+      "AP",
+      "RH"
+    ],
+    "ordinal_columns": [],
+    "target_encoded_columns": [],
+    "frequency_encoded_columns": [],
+    "onehot_columns": [],
+    "skipped_columns": []
+  },
+  "robust_objective": {
+    "enabled": true,
+    "task": "regression",
+    "objective": "huber",
+    "huber_delta": 0.06120839,
+    "robust_sigma_mad": 0.04550809
+  },
+  "ingestion_mode_context": "json_array",
+  "log_transform_target": true,
+  "weighted_least_squares": {
+    "applied": true,
+    "formula": "1/(y_original+epsilon), rescaled to mean 1",
+    "epsilon": 1e-05,
+    "raw_max_min_ratio": 1.179650683979184,
+    "max_ratio": null,
+    "cap_applied": false,
+    "w_cap_raw": null,
+    "w_mean": 0.00220474962840438,
+    "effective_sample_size_frac": 0.9986311391934456
+  }
+}

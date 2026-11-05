@@ -1,0 +1,8 @@
+{
+  "_comment": "Your model targets for ci.yml's quality gate. The floors (classification: roc_auc >= 0.5 and f1/recall/precision > 0; regression: r2 > 0) always apply; add stricter ones here, e.g. min: {roc_auc: 0.95, recall_positive: 0.8} for classification, or min: {r2: 0.7} and max: {rmse: 12.5} for regression. enforce=false downgrades failures to warnings. `min` was seeded from this run's metric minus a safety margin (0.05; 0.10 for r2) so a clearly worse retrain fails CI -- raise it as the model improves.",
+  "enforce": true,
+  "min": {
+    "r2": 0.873
+  },
+  "max": {}
+}

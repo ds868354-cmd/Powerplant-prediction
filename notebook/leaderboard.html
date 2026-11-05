@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TABULAR_ML Leaderboard (regression)</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; background: #f7f7f9; color: #1a1a1a; }
+  h1 { font-size: 1.4rem; }
+  table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+  th, td { padding: 0.6rem 0.9rem; text-align: left; border-bottom: 1px solid #eee; }
+  th { cursor: pointer; user-select: none; background: #fafafa; border-bottom: 2px solid #ddd; }
+  th:hover { background: #f0f0f0; }
+  tr:first-child td { font-weight: 600; background: #f4fbf4; }
+  .badge { padding: 0.15rem 0.5rem; border-radius: 0.75rem; font-size: 0.75rem; }
+  .badge-classical { background: #e8eefc; color: #2a4bb5; }
+  .badge-deep { background: #fdeee0; color: #a45c15; }
+  .badge-baseline { background: #eeeeee; color: #555; }
+  .badge-diverged { background: #fde8e8; color: #b42318; }
+  .note { color: #666; font-size: 0.85rem; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<h1>TABULAR_ML Leaderboard (regression)</h1>
+<table id="board">
+<thead><tr>
+<th onclick="sortBoard(0)">Rank</th>
+<th onclick="sortBoard(1)">Model</th>
+<th onclick="sortBoard(2)">Family</th>
+<th onclick="sortBoard(3)">R²</th>
+<th onclick="sortBoard(4)">Std</th>
+<th onclick="sortBoard(5)">Time</th>
+</tr></thead>
+<tbody>
+<tr><td>1</td><td>xgboost</td><td><span class='badge badge-classical'>classical</span></td><td>0.9575</td><td>0.0028</td><td>2.9s</td></tr><tr><td>2</td><td>lightgbm</td><td><span class='badge badge-classical'>classical</span></td><td>0.9562</td><td>0.0021</td><td>1.2s</td></tr><tr><td>3</td><td>random_forest</td><td><span class='badge badge-classical'>classical</span></td><td>0.9543</td><td>0.0026</td><td>16.0s</td></tr><tr><td>4</td><td>lightgbm_quantile</td><td><span class='badge badge-classical'>classical</span></td><td>0.9535</td><td>0.0018</td><td>1.5s</td></tr><tr><td>5</td><td>gradient_boosting</td><td><span class='badge badge-classical'>classical</span></td><td>0.9460</td><td>0.0022</td><td>8.0s</td></tr><tr><td>6</td><td>knn</td><td><span class='badge badge-classical'>classical</span></td><td>0.9439</td><td>0.0015</td><td>0.1s</td></tr><tr><td>7</td><td>gradient_boosting_quantile</td><td><span class='badge badge-classical'>classical</span></td><td>0.9434</td><td>0.0019</td><td>7.5s</td></tr><tr><td>8</td><td>ridge</td><td><span class='badge badge-classical'>classical</span></td><td>0.9288</td><td>0.0016</td><td>0.1s</td></tr><tr><td>9</td><td>linear_regression</td><td><span class='badge badge-classical'>classical</span></td><td>0.9288</td><td>0.0016</td><td>0.1s</td></tr><tr><td>10</td><td>decision_tree</td><td><span class='badge badge-classical'>classical</span></td><td>0.9160</td><td>0.0053</td><td>0.2s</td></tr><tr><td>11</td><td>baseline_predict_average</td><td><span class='badge badge-baseline'>baseline</span></td><td>-0.0018</td><td>0.0012</td><td>0.0s</td></tr><tr><td>12</td><td>lasso</td><td><span class='badge badge-classical'>classical</span></td><td>-0.0022</td><td>0.0020</td><td>0.1s</td></tr><tr><td>13</td><td>elastic_net</td><td><span class='badge badge-classical'>classical</span></td><td>-0.0022</td><td>0.0020</td><td>0.1s</td></tr><tr><td>14</td><td>svm</td><td><span class='badge badge-classical'>classical</span></td><td>-0.0259</td><td>0.0093</td><td>0.1s</td></tr>
+</tbody>
+</table>
+<p class="note">Click a column header to sort. "classical" rows are k-fold
+cross-validated; "deep" rows (tabnet / ft_transformer / saint) are a single
+train/validation split. This page is a comparison report only -- it does not
+change which model was trained into this bundle's app.py.</p>
+<script>
+var sortDir = {};
+function sortBoard(col) {
+  var table = document.getElementById('board');
+  var tbody = table.tBodies[0];
+  var rows = Array.prototype.slice.call(tbody.rows);
+  var dir = sortDir[col] = !sortDir[col];
+  rows.sort(function(a, b) {
+    var av = a.cells[col].innerText, bv = b.cells[col].innerText;
+    var an = parseFloat(av), bn = parseFloat(bv);
+    var cmp = (!isNaN(an) && !isNaN(bn)) ? (an - bn) : av.localeCompare(bv);
+    return dir ? cmp : -cmp;
+  });
+  rows.forEach(function(r) { tbody.appendChild(r); });
+}
+</script>
+</body>
+</html>
